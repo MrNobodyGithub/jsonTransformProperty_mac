@@ -52,6 +52,7 @@
         lastStr = [lastStr stringByAppendingString:value];
         lastStr = [lastStr stringByAppendingString:@"\n"];
         lastStr = [lastStr stringByAppendingString:@"*/"];
+        lastStr = [lastStr stringByAppendingString:@"\n"];
         lastStr = [lastStr stringByAppendingString:@"@property(nonatomic,copy) NSString * "];
         lastStr = [lastStr stringByAppendingString:key];
         lastStr = [lastStr stringByAppendingString:@";"];
