@@ -11,6 +11,8 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 @property (unsafe_unretained) IBOutlet NSTextView *textViewR;
+@property (unsafe_unretained) IBOutlet NSTextView *textViewEditL;
+@property (unsafe_unretained) IBOutlet NSTextView *textViewEditR;
 
 @end
 
@@ -27,9 +29,16 @@
     
     stra = [stra stringByReplacingOccurrencesOfString:@" " withString:@""];
     stra = [stra stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    stra = [stra stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     stra = [stra stringByReplacingOccurrencesOfString:@"{" withString:@""];
     stra = [stra stringByReplacingOccurrencesOfString:@"}" withString:@""];
-    NSArray * arr = [stra componentsSeparatedByString:@";"];
+    
+    NSString * sepStr = @";";
+    
+    if (self.textViewEditL.textStorage.string.length > 0) {
+        sepStr = self.textViewEditL.textStorage.string;
+    }
+    NSArray * arr = [stra componentsSeparatedByString:sepStr];
     
     NSString * strDef = @"";
     for (NSString * str in arr) {
@@ -37,7 +46,15 @@
         }else{
             break;
         }
-        NSArray * arrKeyValue = [str componentsSeparatedByString:@"="];
+        
+        
+        NSString * setStra = @"=";
+        if (self.textViewEditR.textStorage.string.length > 0) {
+            setStra = self.textViewEditR.textStorage.string;
+        }
+        NSArray * arrKeyValue =  [str componentsSeparatedByString:setStra];
+        
+//        NSArray * arrKeyValue = [str componentsSeparatedByString:@"="];
         NSString * key = arrKeyValue[0];
         NSString * value = [arrKeyValue lastObject] ;
         
